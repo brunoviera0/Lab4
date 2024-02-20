@@ -1,7 +1,7 @@
 # Lab4
 Make sure you have a C++ compiler installed
 
-Clone the repo using "git clone" followed by the link
+Clone the repo using "git clone" in your terminal followed by the link to the github page
 
 To compile the program: g++ -o main main.cpp balanced_seq.cpp fisher_yates.cpp
 
