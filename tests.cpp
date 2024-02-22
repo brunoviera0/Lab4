@@ -1,6 +1,8 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
 #include "balanced_seq.h"
+#include "fisher_yates.h"
+#include "prefixSum.h"
 
 
 TEST_CASE("Well-Balanced Sequence for n=0") {
@@ -36,4 +38,27 @@ TEST_CASE("Well-Balanced Sequence for larger number pairs (n=5)") {
         CHECK(balance >= 0);
     }
     CHECK(balance == 0);
+}
+
+TEST_CASE("Fisher-Yates Shuffle Preserves Elements") {
+    std::vector<int> original = {1, -1, 1, -1, 1};
+    std::vector<int> shuffled = original;
+    fisher_yates(shuffled);
+    std::sort(original.begin(), original.end());
+    std::sort(shuffled.begin(), shuffled.end());
+    CHECK(original == shuffled);
+}
+
+TEST_CASE("Non-Negative Prefix Sums for Known Balanced Sequence") {
+    std::vector<int> sequence = {1, -1, 1, 1, -1, -1}; //balanced
+    bool nonNegativePrefix = true;
+    int sum = 0;
+    for (int val : sequence) {
+        sum += val;
+        if (sum < 0) {
+            nonNegativePrefix = false;
+            break;
+        }
+    }
+    CHECK(nonNegativePrefix);
 }
